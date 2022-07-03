@@ -13,18 +13,17 @@ loader_blueprint = Blueprint('loader_blueprint', __name__, template_folder='temp
 def post_page():
     return render_template("post_form.html")
 
-@loader_blueprint.route('/post', method = ['POST'])
+@loader_blueprint.route('/post', methods = ['POST'])
 def add_post_page():
     picture = request.files.get('picture')
     content = request.form.get('content')
 
-    if picture.filename.split('.')[-1] not in ['jpeg', 'png']
+    if picture.filename.split('.')[-1] not in ['jpeg', 'png']:
         logging.info('Неверное расширение изображения')
         return 'Неверный формат изображения'
 
     if not picture or not content:
         return 'Что-то пошло не так'
-
 
     try:
         picture_path: str = '/' + save_picture(picture)
